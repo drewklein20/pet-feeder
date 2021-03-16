@@ -77,7 +77,7 @@ git clone https://github.com/drewklein20/pet-feeder.git
 ```
 cd pet-feeder
 sudo chmod +x build.sh
-sudo ./build.sh
+sudo bash -x build.sh
 ```
 
 ### 8.) Login/config
