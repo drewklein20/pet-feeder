@@ -6,9 +6,24 @@ import json
 import mysql.connector
 from datetime import datetime
 
-apiStr = "apikey:a47ad141-ab4f-4f17-8912-005ed8565554"
-encoded_u = base64.b64encode(apiStr.encode()).decode()
 
+
+mydb = mysql.connector.connect(
+    host="localhost",
+    user="remote",
+    password="PetFeeder2021!",
+    database="Feeder",
+)
+
+dbcursor = mydb.cursor()
+dbcursor.execute(
+    "SELECT JSON_UNQUOTE(JSON_EXTRACT(preferences, '$.syncricAPI')) as api, JSON_UNQUOTE(JSON_EXTRACT(preferences, '$.syncricDeviceId')) as device FROM Feeder.Settings WHERE id = '1';"
+)
+dbresult = dbcursor.fetchone()
+
+apiStr = "apikey:" + string(dbresult[0])
+deviceStr = string(dbresult[1])
+encoded_u = base64.b64encode(apiStr.encode()).decode()
 
 def deviceAction(value, deviceName):
     if value == "ON":
@@ -35,7 +50,7 @@ def deviceAction(value, deviceName):
 
 
 def selectDevice(deviceId, action, value):
-    if deviceId == "603c4836676adb5c83187e96":  # Replace with your deviceId
+    if deviceId == deviceStr:  # Replace with your deviceId
         deviceAction(value, "Dog feeder")
 
 
