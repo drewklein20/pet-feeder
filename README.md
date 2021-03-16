@@ -42,9 +42,9 @@ Type in Y to Reload privilege tables now
 ```
 sudo nano /etc/mysql/mariadb.conf.d/50-server.cnf
 ```
-Add a # before this line's text to comment it down
+Comment this line out with a #
 ```
-bind-address            = 127.0.0.1 #Set to your device's IP
+bind-address            = 127.0.0.1
 ```
 restart mysql
 ```
