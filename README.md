@@ -28,7 +28,7 @@ Type in Y to Remove test database and access to it
 Type in Y to Reload privilege tables now  
 
 
-### edit mysql binded address (obtain your IP first)
+## Edit mysql binded address (obtain your IP first)
 ```
 sudo nano /etc/mysql/mariadb.conf.d/50-server.cnf
 ```
@@ -55,7 +55,7 @@ sudo git clone https://github.com/drewklein20/pet-feeder.git
 cd pet-feeder
 ```
 
-### Build DB schema (in pet-feeder dir)
+## Build DB schema (in pet-feeder dir)
 ```
 sudo mysql < schema.sql
 ```
@@ -75,15 +75,15 @@ FLUSH PRIVILEGES;
 exit;
 ```
 
-### Build website (in pet-feeder dir)
+## Build website (in pet-feeder dir)
 ```
 sudo chmod +x build.sh
 sudo ./build.sh
 ```
-### Login/config
+## Login/config
 Go to http://petfeeder.local and login with username 'admin' and password 'password'
 
-### Configuring Alexa
+## Configuring Alexa
 Log into the feeder and enable Alexa in the settings  
 Go to https://sinric.com/ and create a free account  
 Copy the synric API key ("Your API Key") and save it in the feeder settings for Synric API Key  
