@@ -15,6 +15,15 @@ sudo pip install install mysql-connector-python pigpio RPi.GPIO pysinric
 sudo pip3 install hx711
 sudo apt-get install pigpio
 sudo pigpiod
+
+```
+## Give PHP permissions for python scripts
+```
+sudo visudo
+```
+At the bottom of this file, append the following line and save
+```
+www-data ALL=NOPASSWD: ALL
 ```
 
 ## Configure mysql
@@ -90,4 +99,21 @@ Log into the feeder and enable Alexa in the settings
 Go to https://sinric.com/ and create a free account  
 Copy the synric API key ("Your API Key") and save it in the feeder settings for Synric API Key  
 Create a new smart home decice on the synric site (device type: switch). Copy the deviceId and save it in the feeder settings for Synric DeviceId
+
+## Enable scheduler with cron
+```
+sudo crontab -e
+```
+Add the following line to the bottom
+```
+* * * * * sudo /usr/bin/python /var/www/html/php/cronFeed.py >> /var/www/html/php/cronLog.log 2>&1
+```
+
+## Set proper timezone
+```
+sudo raspi-config
+```
+Set your timezone under Localization Options (US central is what I used)
+
+
 
