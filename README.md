@@ -61,7 +61,7 @@ Set hostname to petfeeder and reboot
 ## Clone source code
 ```
 cd ~/
-sudo git clone https://github.com/drewklein20/pet-feeder.git
+git clone https://github.com/drewklein20/pet-feeder.git
 cd pet-feeder
 ```
 
