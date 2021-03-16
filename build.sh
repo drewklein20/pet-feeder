@@ -22,3 +22,5 @@ sudo systemctl enable alexa.service
 sudo systemctl enable scale.service
 sudo systemctl start alexa.service
 sudo systemctl start scale.service
+
+sudo mysql < schema.sql
