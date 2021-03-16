@@ -71,23 +71,19 @@ sudo raspi-config
 ```
 cd ~/
 git clone https://github.com/drewklein20/pet-feeder.git
+```
+
+### 7.) Build DB and Webserver
+```
 cd pet-feeder
-```
-
-### 7.) Build DB schema (in pet-feeder dir)
-```
-sudo mysql < schema.sql
-```
-
-### 8.) Build website (in pet-feeder dir)
-```
 sudo chmod +x build.sh
 sudo ./build.sh
 ```
-### 9.) Login/config
+
+### 8.) Login/config
 Go to http://petfeeder.local and login with username 'admin' and password 'password'
 
-### 10.) Configuring Alexa
+### 9.) Configuring Alexa
 * Log into the feeder and enable Alexa in the settings
 * Go to https://sinric.com/ and create a free account
 * Copy the sinric API key ("Your API Key") and save it in the feeder settings for Sinric API Key
@@ -101,7 +97,7 @@ Go to http://petfeeder.local and login with username 'admin' and password 'passw
 
 To debug, run sudo python /var/www/html/php/alexaFeed.py (If configured correctly, you should see text logged when Alexa is triggered)
 
-### 11.) Enable scheduler with cron
+### 10.) Enable scheduler with cron
 ```
 sudo crontab -e
 ```
@@ -110,13 +106,13 @@ Add the following line to the bottom
 * * * * * sudo /usr/bin/python /var/www/html/php/cronFeed.py >> /var/www/html/php/cronLog.log 2>&1
 ```
 
-### 12.) Set proper timezone
+### 11.) Set proper timezone
 ```
 sudo raspi-config
 ```
 Set your timezone under Localization Options (US central is what I used)
 
-### 13.) Calibrating scale
+### 12.) Calibrating scale
 * First in the app settings, enable the scale and save.  
 * Find an object that you know the exact weight of in grams or kg (I used an echo dot & I googled the weight)  
 * cd into the pet-feeder directory and run the following (you should see values being output)
