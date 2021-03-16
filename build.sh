@@ -1,5 +1,8 @@
 #!/bin/bash
 
+sudo mysql --username=root --password=Tigers2018! < schema.sql
+sudo mysql --username=root --password=Tigers2018!
+
 sudo rm -rf /var/www/html/*
 sudo cp -r dist/* /var/www/html/
 sudo mkdir /var/www/html/php
