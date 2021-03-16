@@ -117,6 +117,16 @@ LOCK TABLES `Weights` WRITE;
 /*!40000 ALTER TABLE `Weights` DISABLE KEYS */;
 /*!40000 ALTER TABLE `Weights` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
+USE Feeder;
+CREATE USER 'remote'@'localhost' IDENTIFIED BY 'PetFeeder2021!';
+CREATE USER 'remote'@'%' IDENTIFIED BY 'PetFeeder2021!';
+GRANT ALL PRIVILEGES ON * . * TO 'remote'@'localhost';
+GRANT ALL ON *.* TO 'remote'@'%';
+FLUSH PRIVILEGES;
+
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
