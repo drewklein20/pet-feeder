@@ -1,7 +1,7 @@
 #!/bin/bash
 
-sudo mysql --username=root --password=Tigers2018! < schema.sql
-sudo mysql --username=root --password=Tigers2018!
+sudo service mysql restart
+sudo mysql -u root -pPetFeeder2021! < schema.sql
 
 sudo rm -rf /var/www/html/*
 sudo cp -r dist/* /var/www/html/
