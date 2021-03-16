@@ -1,15 +1,5 @@
 #!/bin/bash
 
-sudo mysql
-USE FEEDER;
-CREATE USER 'remote'@'localhost' IDENTIFIED BY 'PetFeeder2021!';
-CREATE USER 'remote'@'%' IDENTIFIED BY 'PetFeeder2021!';
-GRANT ALL PRIVILEGES ON * . * TO 'remote'@'localhost';
-GRANT ALL ON *.* TO 'remote'@'%';
-FLUSH PRIVILEGES;
-exit;
-
-
 sudo rm -rf /var/www/html/*
 sudo cp -r dist/* /var/www/html/
 sudo mkdir /var/www/html/php
