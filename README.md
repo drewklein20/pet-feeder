@@ -38,7 +38,7 @@ www-data ALL=NOPASSWD: ALL
 ```
 sudo mysql_secure_installation
 ```
-You will be asked Enter current password for root (type a secure password): press Enter  
+You will be asked Enter current password for root (enter PetFeeder2021!): press Enter  
 Type in Y and press Enter to Set root password  
 Type in a password at the New password: prompt, and press Enter. Important: remember this root password, as you will need it later  
 Type in Y to Remove anonymous users  
