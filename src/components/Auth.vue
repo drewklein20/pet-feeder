@@ -48,7 +48,7 @@ export default {
       if (this.username != '' || this.password != '') {
 
         let body = "action=auth&username=" + this.username.toLowerCase() + "&password=" + this.password.toLowerCase();
-        let apiUrl = 'http://192.168.1.94/php/feeder.php';
+        let apiUrl = process.env.VUE_APP_BACKEND_URL;
         this.axios.post(apiUrl, body).then((response) => {
           if (response.data == true) {
             this.$emit('authEvent', true)
