@@ -12,28 +12,39 @@ $dbuser = 'remote';
 $dbpass = 'PetFeeder2021!';
 $dbname = 'Feeder';
 
-
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //------------------------------------------------
     //-------------- POST REQUESTS -------------------
 
     $action           = isset($_POST["action"]) ? clean_input($_POST["action"]) : '';
-    $feedTime      = isset($_POST["feed_time"]) ? clean_input($_POST["feed_time"]) : '';
-    $amount      = isset($_POST["amount"]) ? clean_input($_POST["amount"]) : '';
-    $id      = isset($_POST["id"]) ? clean_input($_POST["id"]) : '';
+    $username         = isset($_POST["username"]) ? clean_input($_POST["username"]) : '';
+    $password         = isset($_POST["password"]) ? clean_input($_POST["password"]) : '';
+    $feedTime         = isset($_POST["feed_time"]) ? clean_input($_POST["feed_time"]) : '';
+    $amount           = isset($_POST["amount"]) ? clean_input($_POST["amount"]) : '';
+    $id               = isset($_POST["id"]) ? clean_input($_POST["id"]) : '';
     $preferences      = isset($_POST["preferences"]) ? getJSONbody($_POST["preferences"]) : null;
     $rc = false;
 
     switch ($action) {
+        case 'auth':
+            $sql = "SELECT JSON_UNQUOTE(JSON_EXTRACT(preferences, '$.username')) as username, JSON_UNQUOTE(JSON_EXTRACT(preferences, '$.password')) as password FROM Feeder.Settings limit 1;";
+            $results = queryDB($sql);
+            $authU = $results[0]['username'];
+            $authP = $results[0]['password'];
 
+            if ($username == $authU && $password == $authP) {
+                echo 'true';
+            } else {
+                echo 'false';
+            }
+            break;
         case 'feed_now':
             $sql = "INSERT INTO `Feeder`.`Logs` (`amount`, `trigger`) VALUES ('" . $amount . "', 'app')";
             $rc = execQuery($sql);
             if ($rc) {
-		$command = 'sudo python /var/www/html/php/feed.py';
-		exec($command, $out, $status);
-                echo "Done!";	
+                $command = 'sudo python /var/www/html/php/feed.py';
+                exec($command, $out, $status);
+                echo "Done!";
             } else {
                 echo "There was an error dispensing the food..";
             }
@@ -66,14 +77,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             break;
         case 'reset_scale':
-                $command = 'sudo systemctl restart scale.service';
-                exec($command, $out, $status);
-                echo "Done!";
+            $command = 'sudo systemctl restart scale.service';
+            exec($command, $out, $status);
+            echo "Done!";
             break;
         case 'reset_alexa':
-                $command = 'sudo systemctl restart alexa.service';
-                exec($command, $out, $status);
-                echo "Done!";
+            $command = 'sudo systemctl restart alexa.service';
+            exec($command, $out, $status);
+            echo "Done!";
             break;
         default:
             echo $action . " not allowed";
@@ -108,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo json_encode($results);
 
             break;
-	case 'all_weights':
+        case 'all_weights':
             $sql = "SELECT * FROM Weights WHERE timestamp > date_sub(now(), interval " . $interval . " " . $timeUnit . ")  ORDER BY timestamp asc;";
             $results = queryDB($sql);
             echo json_encode($results);
@@ -287,4 +298,3 @@ function cors()
         exit(0);
     }
 }
-

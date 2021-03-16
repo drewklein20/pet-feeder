@@ -31,4 +31,3 @@ for x in dbresult:
 		dbcursor.execute(sql, val)
 		mydb.commit()
 		execfile("/var/www/html/php/feed.py")
-

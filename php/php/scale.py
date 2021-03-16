@@ -53,8 +53,8 @@ while True:
             print("weight change detected: ", value)
             sql = "INSERT INTO `Feeder`.`Weights` (`value`) VALUES ('" +  str(value) + "')"
             dbcursor.execute(sql)
-            mydb.commit() 
-	
+            mydb.commit()
+
 	previousWeight = value
         hx.power_down()
         hx.power_up()
