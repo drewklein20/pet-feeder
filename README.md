@@ -69,13 +69,9 @@ cd pet-feeder
 ```
 sudo mysql < schema.sql
 ```
-Then run
+Then run (don't modify the username or password unless you plan on changing the source code)
 ```
 sudo mysql
-```
-
-And enter each command below (don't modify the username or password unless you plan on changing the source code)
-```
 USE Feeder;
 CREATE USER 'remote'@'localhost' IDENTIFIED BY 'PetFeeder2021!';
 CREATE USER 'remote'@'%' IDENTIFIED BY 'PetFeeder2021!';
