@@ -139,7 +139,8 @@ sudo python scale-example.py
 ```
 #referenceUnit = 160
 ```
-* Rerun the example file and verify your numbers are closer to 0
+* Remove the weight and rerun the example file and verify your numbers are closer to 0. Then apply the weight and verify you are seeing correct numbers.
+* If you are seeing the correct numbers, change the reference unit in the app settings and save.
 * If you are seeing very random values the following was helpful to me
   * verify all soldering was done correctly
   * change the first parameter to "LSB" for the following line in the scale-example.py file
