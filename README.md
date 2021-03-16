@@ -13,6 +13,7 @@ sudo apt install python3-pip -y
 sudo apt install python-pip -y
 sudo pip install install mysql-connector-python pigpio RPi.GPIO pysinric
 sudo pip3 install hx711
+sudo pigpiod
 ```
 
 ## Configure mysql
