@@ -15,6 +15,17 @@ This project was created with inspiration from Rob Peck's project (https://githu
 * 360 Servo [amazon](https://www.amazon.com/American-Robotic-Supply-Continuous-Rotation/dp/B01MSAIL3D/ref=sr_1_8?dchild=1&keywords=360+servo&qid=1595785295&sr=8-8.)
 * Scale (optional) [amazon](https://www.amazon.com/MakerHawk-Converter-Breakout-Portable-Electronic/dp/B07GQPV6C4/ref=sr_1_2?dchild=1&keywords=hx711+scale&qid=1616004621&sr=8-2)
 
+## Building the feeder
+I won't go into detailed instructions for how to build the feeder. If you are looking for an example, check out Rob Peck's project (https://github.com/peckrob/petfeedd).
+
+### Wiring servo
+
+
+### Wiring scale
+
+
+
+
 ### 1.) Install required packages
 ```
 sudo apt update && sudo apt upgrade -y
