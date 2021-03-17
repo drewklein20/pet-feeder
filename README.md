@@ -9,6 +9,12 @@ This project was created with inspiration from Rob Peck's project (https://githu
 * Ability to integrate hx711 load cell for bowl weight (keeps from over feeding)
 * Authentication
 
+## Required Parts
+* Raspberry pi (I used a raspberry pi zero w) running raspian buster
+* Cereal dispenser [amazon](https://www.amazon.com/Honey-Can-Do-Dispenser-Single-Control-Chrome/dp/B00013K8O4/ref=sr_1_2?dchild=1&keywords=cereal+dispenser+single&qid=1595785048&sr=8-2)  
+* 360 Servo [amazon](https://www.amazon.com/American-Robotic-Supply-Continuous-Rotation/dp/B01MSAIL3D/ref=sr_1_8?dchild=1&keywords=360+servo&qid=1595785295&sr=8-8.)
+* Scale (optional) [amazon](https://www.amazon.com/MakerHawk-Converter-Breakout-Portable-Electronic/dp/B07GQPV6C4/ref=sr_1_2?dchild=1&keywords=hx711+scale&qid=1616004621&sr=8-2)
+
 ### 1.) Install required packages
 ```
 sudo apt update && sudo apt upgrade -y
