@@ -65,3 +65,4 @@ cd /var/www/html/
  )
  echo "Finished!";
  echo "Visit http://${CURRENT_HOSTNAME}.local"
+ echo -e '\e]8;;http://${CURRENT_HOSTNAME}.local\ahttp://${CURRENT_HOSTNAME}.local\e]8;;\a'
