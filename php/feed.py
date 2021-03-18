@@ -14,16 +14,20 @@ mydb = mysql.connector.connect(
 
 isUsingScale = False
 twoBowls = False
+leftBowlOffset = 0
+rightBowlOffset = 0
 currentWeight = 0
 fullBowlWeight = 100
 
 dbcursor = mydb.cursor()
-dbcursor.execute("SELECT JSON_UNQUOTE(JSON_EXTRACT(preferences, '$.cupDuration')) as cupDuration, JSON_UNQUOTE(JSON_EXTRACT(preferences, '$.bowlWeight')) as cupDuration, JSON_UNQUOTE(JSON_EXTRACT(preferences, '$.twoBowls')) as twoBowls, JSON_UNQUOTE(JSON_EXTRACT(preferences, '$.isUsingScale')) as isUsingScale FROM Feeder.Settings;")
+dbcursor.execute("SELECT JSON_UNQUOTE(JSON_EXTRACT(preferences, '$.cupDuration')) as cupDuration, JSON_UNQUOTE(JSON_EXTRACT(preferences, '$.bowlWeight')) as cupDuration, JSON_UNQUOTE(JSON_EXTRACT(preferences, '$.twoBowls')) as twoBowls, JSON_UNQUOTE(JSON_EXTRACT(preferences, '$.isUsingScale')) as isUsingScale, JSON_UNQUOTE(JSON_EXTRACT(preferences, '$.leftBowlOffset')) as leftBowlOffset, JSON_UNQUOTE(JSON_EXTRACT(preferences, '$.rightBowlOffset')) as rightBowlOffset FROM Feeder.Settings;")
 dbresult = dbcursor.fetchone()
 cupDuration = dbresult[0]
 
 if dbresult[2] == 'true':
 	twoBowls = True
+	leftBowlOffset = dbresult[4]
+	rightBowlOffset = dbresult[5]
 if dbresult[3] == 'true':
 	isUsingScale = True
 	fullBowlWeight = dbresult[1]
@@ -44,17 +48,21 @@ print(fullBowlWeight)
 
 sleepAmount = float(cupDuration) * float(feedCups)
 
+# If feeding two bowls, the right one will be fed first (servo spin direction)
+
 if currentWeight < fullBowlWeight:
 	try:
+		feedAmount = sleepAmount + float(rightBowlOffset)
 		pi.set_servo_pulsewidth(17, 2000)
-		time.sleep(sleepAmount)
+		time.sleep(feedAmount)
 		# switch servo off
 		pi.set_servo_pulsewidth(17, 0);
 		if twoBowls:
 			time.sleep(1)
-        	        pi.set_servo_pulsewidth(17, 1000)
-               		time.sleep(sleepAmount)
-                	pi.set_servo_pulsewidth(17, 0)
+			feedAmount = sleepAmount + float(leftBowlOffset)
+			pi.set_servo_pulsewidth(17, 1000)
+			time.sleep(feedAmount)
+			pi.set_servo_pulsewidth(17, 0)
 		pi.stop()
 
 	except KeyboardInterrupt:
