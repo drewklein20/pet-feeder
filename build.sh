@@ -35,7 +35,7 @@ cd /var/www/html/
  ( shopt -s globstar dotglob;
      for file in **; do
          if [[ -f $file ]] && [[ -w $file ]]; then
-             sed -i -- 's/$CURRENT_HOSTNAME/feederhostname/g' "$file"
+             sed -i -- "s/$CURRENT_HOSTNAME/feederhostname/g" "$file"
          fi
      done
  )
