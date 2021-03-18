@@ -64,5 +64,4 @@ cd /var/www/html/
      done
  )
  echo "Finished!";
- echo "Visit http://${CURRENT_HOSTNAME}.local"
- echo -e "\e]8;;http://${CURRENT_HOSTNAME}.local\ahttp://${CURRENT_HOSTNAME}.local\e]8;;\a"
+ echo -e "\e]8;;http://${CURRENT_HOSTNAME}.local\a Visit http://${CURRENT_HOSTNAME}.local now\e]8;;\a"
