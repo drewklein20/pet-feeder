@@ -1,4 +1,4 @@
-# Raspberry PI Dog Feeder
+# Raspberry Pi Dog Feeder
 This project was created with inspiration from Rob Peck's project (https://github.com/peckrob/petfeedd)  
 
 ## Features:
