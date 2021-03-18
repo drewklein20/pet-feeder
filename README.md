@@ -9,6 +9,14 @@ This project was created with inspiration from Rob Peck's project (https://githu
 * Ability to integrate hx711 load cell for bowl weight (keeps from over feeding)
 * Authentication
 
+![1](https://user-images.githubusercontent.com/21964743/111547226-d2430480-8746-11eb-94c9-4704c1b65c43.png)
+![7](https://user-images.githubusercontent.com/21964743/111632005-0b6c8a80-87c2-11eb-82af-f916baa63f87.png)
+![2](https://user-images.githubusercontent.com/21964743/111547227-d2db9b00-8746-11eb-955f-82c2f4d3681b.png)
+![3](https://user-images.githubusercontent.com/21964743/111547229-d2db9b00-8746-11eb-98fe-acf8b09fae75.png)
+![4](https://user-images.githubusercontent.com/21964743/111547230-d2db9b00-8746-11eb-8b46-7b7af69e97a9.png)
+![5](https://user-images.githubusercontent.com/21964743/111547231-d3743180-8746-11eb-8058-2e5eb90eba2e.png)
+![6](https://user-images.githubusercontent.com/21964743/111547426-2221cb80-8747-11eb-93cd-e86857930051.png)
+
 ## Required Parts
 * Raspberry pi (I used a raspberry pi zero w) running raspian buster
 * Cereal dispenser [amazon](https://www.amazon.com/Honey-Can-Do-Dispenser-Single-Control-Chrome/dp/B00013K8O4/ref=sr_1_2?dchild=1&keywords=cereal+dispenser+single&qid=1595785048&sr=8-2)  
@@ -59,9 +67,9 @@ www-data ALL=NOPASSWD: ALL
 ```
 sudo mysql_secure_installation
 ```
-You will be asked Enter current password for root (enter __PetFeeder2021!__): press Enter  
-Type in Y and press Enter to Set root password  
-Type in a password at the New password: prompt, and press Enter. Important: remember this root password, as you will need it later  
+You will be asked Enter current password for root. Enter your password if one is set and press Enter  
+Type in Y and press Enter to set the root password  
+Type in __PetFeeder2021!__ for the password at the New password: prompt, and press Enter. Important: The database import will not work unless this is set correctly. 
 Type in Y to Remove anonymous users  
 Type in N to Disallow root login remotely  
 Type in Y to Remove test database and access to it  
@@ -81,12 +89,12 @@ Restart mysql
 sudo service mysql restart
 ```
 
-### 5.) Set your rpi hostname to feeder (Don't skip this step, backend is setup to talk to this hostname)
+### 5.) Set your rpi hostname to petfeeder (Don't skip this step, backend is setup to talk to this hostname)
 ```
 sudo raspi-config
 ```
 * Go to system options -> hostname  
-* Set hostname to feeder and reboot  
+* Set hostname to __petfeeder__ and reboot  
 
 ### 6.) Clone source code
 ```
