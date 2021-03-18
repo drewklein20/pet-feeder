@@ -93,30 +93,24 @@ Restart mysql
 sudo service mysql restart
 ```
 
-### 5.) Set your rpi hostname to petfeeder (Don't skip this step, backend is setup to talk to this hostname)
-```
-sudo raspi-config
-```
-* Go to system options -> hostname  
-* Set hostname to __petfeeder__ and reboot  
-
-### 6.) Clone source code
+### 5.) Clone source code
 ```
 cd ~/
 git clone https://github.com/drewklein20/pet-feeder.git
 ```
 
-### 7.) Build DB and Webserver
+### 6.) Build DB and Webserver
 ```
 cd pet-feeder
 sudo chmod +x build.sh
-sudo bash -x build.sh
+sudo ./build.sh
 ```
+Enter y for the Full Build (if just updating, then enter n)
 
-### 8.) Login/config
+### 7.) Login/config *(Substitute with your pi's hostname)
 Go to http://petfeeder.local and login with username 'admin' and password 'password'
 
-### 9.) Configuring Alexa
+### 8.) Configuring Alexa
 * Log into the feeder and enable Alexa in the settings
 * Go to https://sinric.com/ and create a free account
 * Copy the sinric API key ("Your API Key") and save it in the feeder settings for Sinric API Key
@@ -130,7 +124,7 @@ Go to http://petfeeder.local and login with username 'admin' and password 'passw
 
 To debug, run sudo python /var/www/html/php/alexaFeed.py (If configured correctly, you should see text logged when Alexa is triggered)
 
-### 10.) Enable scheduler with cron
+### 9.) Enable scheduler with cron
 ```
 sudo crontab -e
 ```
@@ -139,13 +133,13 @@ Add the following line to the bottom
 * * * * * sudo /usr/bin/python /var/www/html/php/cronFeed.py >> /var/www/html/php/cronLog.log 2>&1
 ```
 
-### 11.) Set proper timezone
+### 10.) Set proper timezone
 ```
 sudo raspi-config
 ```
 Set your timezone under Localization Options (US central is what I used)
 
-### 12.) Calibrating scale
+### 11.) Calibrating scale
 * First in the app settings, enable the scale and save.  
 * Find an object that you know the exact weight of in grams or kg (I used an echo dot & I googled the weight)  
 * cd into the pet-feeder directory and run the following (you should see values being output)
