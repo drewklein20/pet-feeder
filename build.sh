@@ -1,14 +1,5 @@
 #!/bin/bash
 
-#Hostname substitution
- ( shopt -s globstar dotglob;
-     for file in **; do
-         if [[ -f $file ]] && [[ -w $file ]]; then
-             sed -i -- 's/feederhostname/feeder/g' "$file"
-         fi
-     done
- )
-
 sudo service mysql restart
 sudo mysql -u root -pPetFeeder2021! < schema.sql
 
@@ -36,3 +27,15 @@ sudo systemctl start alexa.service
 sudo systemctl start scale.service
 sudo systemctl enable pigpiod
 sudo systemctl start pigpiod
+
+CURRENT_HOSTNAME=`cat /etc/hostname | tr -d " \t\n\r"`
+# Hostname substitution
+cd /var/www/html/
+
+ ( shopt -s globstar dotglob;
+     for file in **; do
+         if [[ -f $file ]] && [[ -w $file ]]; then
+             sed -i -- 's/$CURRENT_HOSTNAME/feeder/g' "$file"
+         fi
+     done
+ )
