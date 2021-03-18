@@ -5,155 +5,216 @@
         Feeder Settings
       </v-card-title>
       <v-card-text>
-        <v-row>
-          <v-col>
-            <v-text-field
-              label="Pet name"
-              placeholder=""
-              v-model="settings.petName"
-              outlined
-            ></v-text-field>
-          </v-col>
-          <v-col>
-            <v-layout align-center justify-center>
-              <v-checkbox
-                v-model="settings.twoBowls"
-                :label="`Two Bowls`"
-              ></v-checkbox>
-            </v-layout>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <v-text-field
-              label="Username"
-              placeholder=""
-              v-model="settings.username"
-              outlined
-            ></v-text-field>
-          </v-col>
-          <v-col>
-            <v-text-field
-              label="Password"
-              placeholder=""
-              v-model="settings.password"
-              outlined
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <v-text-field
-              label="Device name"
-              placeholder=""
-              v-model="settings.feederName"
-              outlined
-            ></v-text-field>
-          </v-col>
-          <v-col>
-            <v-text-field
-              label="1 Cup Duration (seconds)"
-              placeholder=""
-              type="number"
-              v-model="settings.cupDuration"
-              outlined
-            ></v-text-field>
-          </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col>
-            <v-layout align-center justify-center>
-              <v-switch
-                v-model="settings.isUsingAlexa"
-                label="Alexa"
-              ></v-switch>
-            </v-layout>
-            <v-text-field
-              v-if="settings.isUsingAlexa"
-              label="Sinric API Key"
-              placeholder=""
-              v-model="settings.sinricAPI"
-              outlined
-            ></v-text-field>
-            <v-text-field
-              v-if="settings.isUsingAlexa"
-              label="Sinric Device ID"
-              placeholder=""
-              v-model="settings.sinricDeviceId"
-              outlined
-            ></v-text-field>
-            <v-select
-              v-if="settings.isUsingAlexa"
-              v-model="settings.defaultFeedAmount"
-              :items="amounts"
-              type="number"
-              label="Alexa Default Feed Amount (cups)"
-              hint="Cups"
-              persistent-hint
-              outlined
-            ></v-select>
-          </v-col>
-          <v-col>
-            <v-layout align-center justify-center>
-              <v-switch
-                v-model="settings.isUsingScale"
-                label="Scale"
-              ></v-switch>
-            </v-layout>
-            <v-text-field
-              v-if="settings.isUsingScale"
-              label="Scale Reference Unit"
-              placeholder=""
-              type="number"
-              v-model="settings.scaleReferenceUnit"
-              outlined
-            ></v-text-field>
-
-            <v-text-field
-              v-if="settings.isUsingScale"
-              label="Full Bowl Weight (g)"
-              placeholder=""
-              type="number"
-              v-model="settings.fullBowlWeight"
-              outlined
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <v-layout align-center justify-center class="pt-2">
-              <v-tooltip bottom>
-                <template v-slot:activator="{ on, attrs }">
+        <v-expansion-panels>
+          <v-expansion-panel>
+            <v-expansion-panel-header>Pet & Device</v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <v-row>
+                <v-col>
+                  <v-text-field
+                    label="Pet name"
+                    placeholder=""
+                    v-model="settings.petName"
+                    outlined
+                  ></v-text-field>
+                </v-col>
+                <v-col>
+                  <v-text-field
+                    label="Device name"
+                    placeholder=""
+                    v-model="settings.feederName"
+                    outlined
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+          <v-expansion-panel>
+            <v-expansion-panel-header>Feeding</v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <v-row> 
+                <v-col>
+                  <v-text-field
+                    label="1 Cup Duration (seconds)"
+                    placeholder=""
+                    type="number"
+                    v-model="settings.cupDuration"
+                    outlined
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col>
+                  <v-layout>
+                    <v-checkbox
+                      v-model="settings.twoBowls"
+                      :label="`Two Bowls`"
+                    ></v-checkbox>
+                  </v-layout>
+                </v-col>
+                <v-col>
+                  <v-text-field
+                    v-if="settings.twoBowls"
+                    label="Left Bowl Offset (seconds)"
+                    placeholder=""
+                    type="number"
+                    v-model="settings.cupDuration"
+                    outlined
+                  ></v-text-field>
+                </v-col>
+                <v-col>
+                  <v-text-field
+                    v-if="settings.twoBowls"
+                    label="Right Bowl Offset (seconds)"
+                    placeholder=""
+                    type="number"
+                    v-model="settings.cupDuration"
+                    outlined
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+          <v-expansion-panel>
+            <v-expansion-panel-header>Authentication</v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <v-row>
+                <v-col>
+                  <v-text-field
+                    label="Username"
+                    placeholder=""
+                    v-model="settings.username"
+                    outlined
+                  ></v-text-field>
+                </v-col>
+                <v-col>
+                  <v-text-field
+                    label="Password"
+                    placeholder=""
+                    v-model="settings.password"
+                    outlined
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+          <v-expansion-panel>
+            <v-expansion-panel-header>Amazon Alexa {{settings.isUsingAlexa ? '(enabled)' : ''}}</v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <v-row>
+                <v-col>
+                  <v-layout>
+                    <v-switch
+                      v-model="settings.isUsingAlexa"
+                      label="Alexa"
+                    ></v-switch>
+                  </v-layout>
+                </v-col>
+                <v-col>
+                  <v-select
+                    v-if="settings.isUsingAlexa"
+                    v-model="settings.defaultFeedAmount"
+                    :items="amounts"
+                    type="number"
+                    label="Alexa Default Feed Amount (cups)"
+                    hint="Cups"
+                    persistent-hint
+                    outlined
+                  ></v-select>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col>
+                  <v-text-field
+                    v-if="settings.isUsingAlexa"
+                    label="Sinric API Key"
+                    placeholder=""
+                    v-model="settings.sinricAPI"
+                    outlined
+                  ></v-text-field>
+                </v-col>
+                <v-col>
+                  <v-text-field
+                    v-if="settings.isUsingAlexa"
+                    label="Sinric Device ID"
+                    placeholder=""
+                    v-model="settings.sinricDeviceId"
+                    outlined
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row v-if="settings.isUsingAlexa">
+                <v-layout align-center justify-center class="pt-2 pb-6">
                   <v-btn
                     rounded
                     color="secondary"
-                    @click="resetScale"
+                    @click="resetAlexa"
                     :disabled="isUpdating"
-                    v-bind="attrs"
-                    v-on="on"
                   >
-                    Reset Scale
+                    Reset Alexa
                   </v-btn>
-                </template>
-                <span>Please empty bowl before resetting the scale</span>
-              </v-tooltip>
-            </v-layout>
-          </v-col>
+                </v-layout>
+              </v-row>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+          <v-expansion-panel>
+            <v-expansion-panel-header>Scale {{settings.isUsingScale ? '(enabled)' : ''}}</v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <v-row>
+                <v-col>
+                  <v-layout>
+                    <v-switch
+                      v-model="settings.isUsingScale"
+                      label="Scale"
+                    ></v-switch>
+                  </v-layout>
+                </v-col>
+                <v-col>
+                  <v-text-field
+                    v-if="settings.isUsingScale"
+                    label="Scale Reference Unit"
+                    placeholder=""
+                    type="number"
+                    v-model="settings.scaleReferenceUnit"
+                    outlined
+                  ></v-text-field>
+                </v-col>
+                <v-col>
+                  <v-text-field
+                    v-if="settings.isUsingScale"
+                    label="Full Bowl Weight (g)"
+                    placeholder=""
+                    type="number"
+                    v-model="settings.fullBowlWeight"
+                    outlined
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row v-if="settings.isUsingScale">
+                <v-layout align-center justify-center class="pt-2 pb-6">
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        rounded
+                        color="secondary"
+                        @click="resetScale"
+                        :disabled="isUpdating"
+                        v-bind="attrs"
+                        v-on="on"
+                      >
+                        Reset Scale
+                      </v-btn>
+                    </template>
+                    <span>Please empty bowl before resetting the scale</span>
+                  </v-tooltip>
+                </v-layout>
+              </v-row>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+        <v-row>
           <v-col>
-            <v-layout align-center justify-center class="pt-2">
-              <v-btn
-                rounded
-                color="secondary"
-                @click="resetAlexa"
-                :disabled="isUpdating"
-              >
-                Reset Alexa
-              </v-btn>
-            </v-layout>
-          </v-col>
-          <v-col>
-            <v-layout align-center justify-center class="pt-2">
+            <v-layout align-center justify-center class="pt-11">
               <v-btn
                 rounded
                 color="secondary"
@@ -201,6 +262,8 @@ export default {
       isUsingAlexa: false,
       sinricAPI: "",
       sinricDeviceId: "",
+      leftBowlOffset: 0.0,
+      rightBowlOffset: 0.0,
     },
     isUpdating: false,
   }),
