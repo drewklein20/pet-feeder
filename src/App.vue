@@ -21,11 +21,16 @@ export default {
   },
 
   data: () => ({
-    isAuthenticated: false
   }),
+  computed: {
+    isAuthenticated() {
+      return this.$store.state.isAuthenticated;
+
+    }
+  },
   methods: {
     authEvent(value){
-      this.isAuthenticated = value
+      this.$store.commit('setIsAuthenticated', value);
     }
   }
 };

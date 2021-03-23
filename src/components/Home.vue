@@ -40,7 +40,7 @@
                     :lazy-src="currentImg"
                     max-height="80"
                     max-width="70"
-                    :src="currentImg"
+                    :src="currentImg + '?rnd=' + cacheKey"
                   ></v-img>
                 </v-col>
                 <v-col class="smallCol">
@@ -129,7 +129,7 @@
         <v-img
           v-if="settings.isUsingCamera"
           :lazy-src="currentImg"
-          :src="currentImg"
+          :src="currentImg + '?rnd=' + cacheKey"
         ></v-img>
       </v-card>
     </v-dialog>
@@ -160,10 +160,20 @@ export default {
     padding: 8,
     radius: 10,
     value: [0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, 0],
-    isPreviewingImg: false
+    isPreviewingImg: false,
+    cacheKey: +new Date(),
+    imgInterval: ''
   }),
   async mounted() {
     await this.fetchData();
+  },
+  created() {
+    this.imgInterval = setInterval(() => {
+      this.cacheKey = +new Date();
+    }, 30 * 1000);
+  },
+  destroyed() {
+    clearInterval(this.imgInterval);
   },
   computed: {
     weightLabels() {
