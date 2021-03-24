@@ -1,24 +1,8 @@
-#!/usr/bin/env python2.7
-
-import RPi.GPIO as GPIO
+#!/usr/bin/python
 import time
 import mysql.connector
 from datetime import datetime
-import pigpio
-import time
-import mysql.connector
-import json
-import smtplib
-from os.path import basename
-from email.mime.multipart import MIMEMultipart
-from email.mime.application import MIMEApplication
-from email.mime.image import MIMEImage
-from email.mime.text import MIMEText
-from email.MIMEBase import MIMEBase
-from email import encoders
-import os
-pi = pigpio.pi() # Connect to local Pi.
-
+from subprocess import call
 
 # get the current time
 now = datetime.now()
@@ -45,4 +29,4 @@ for x in dbresult:
 		val = (x[2], "scheduled feed")
 		dbcursor.execute(sql, val)
 		mydb.commit()
-		execfile("/var/www/html/php/feed.py")
+		call(["python", "feed.py"])

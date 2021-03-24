@@ -5,21 +5,7 @@ import base64
 import json
 import mysql.connector
 from datetime import datetime
-import pigpio
-import time
-import mysql.connector
-import json
-import smtplib
-from os.path import basename
-from email.mime.multipart import MIMEMultipart
-from email.mime.application import MIMEApplication
-from email.mime.image import MIMEImage
-from email.mime.text import MIMEText
-from email.MIMEBase import MIMEBase
-from email import encoders
-import os
-pi = pigpio.pi() # Connect to local Pi.
-
+from subprocess import call
 
 
 
@@ -61,8 +47,7 @@ def deviceAction(value, deviceName):
         val = (dbresult[0], "alexa")
         dbcursor.execute(sql, val)
         mydb.commit()
-        execfile("/var/www/html/php/feed.py")
-
+        call(["python", "feed.py"])
 
 def selectDevice(deviceId, action, value):
     if deviceId == deviceStr:  # Replace with your deviceId
