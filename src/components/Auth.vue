@@ -13,6 +13,7 @@
           <v-col>
             <v-text-field
               v-model="password"
+              v-on:keyup.enter="authenticate"
               type="password"
               label="password"
             ></v-text-field>
