@@ -1,6 +1,5 @@
 <template>
   <v-app>
-
     <v-main>
       <auth @authEvent="authEvent" v-if="!isAuthenticated"/>
       <feeder v-else @authEvent="authEvent"/>

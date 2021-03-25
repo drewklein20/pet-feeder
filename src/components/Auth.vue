@@ -1,8 +1,11 @@
 <template>
   <v-container>
+    <v-layout align-center justify-center>
+    <div class="page-title">Pet Feeder</div>
+    </v-layout>
     <v-card class="mx-auto" max-width="400">
       <v-card-title>
-        Authenticate
+        Login
       </v-card-title>
       <v-card-text>
         <v-row>
@@ -25,7 +28,7 @@
       </v-card-text>
       <v-card-actions>
          <v-layout align-center justify-center>
-          <v-btn rounded color="blue" @click="authenticate">
+          <v-btn rounded color="secondary" @click="authenticate">
             Login
           </v-btn>
          </v-layout
@@ -65,3 +68,18 @@ export default {
   }
 };
 </script>
+
+
+<style>
+.page-title {
+ color: #AFCBFF; 
+ font-family: 'Helvetica Neue', sans-serif; 
+ font-size: 40px; 
+ font-weight: bold; 
+ letter-spacing: -1px; 
+ line-height: 1; 
+ text-align: center;
+ margin: 20px;
+}
+</style>
+
