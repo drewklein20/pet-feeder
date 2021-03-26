@@ -9,7 +9,7 @@ case "$choice" in
 esac
 
 
-echo "Building Pet Feeder";
+echo "Building Compu-Feed";
 
 if [ "$fullBuild" = true ] ; then
     echo  'Creating DB schema';
