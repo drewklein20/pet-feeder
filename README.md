@@ -96,12 +96,12 @@ sudo service mysql restart
 ### 5.) Clone source code
 ```
 cd ~/
-git clone https://github.com/drewklein20/pet-feeder.git
+git clone https://github.com/drewklein20/Compu-Feed.git
 ```
 
 ### 6.) Build DB and Webserver
 ```
-cd pet-feeder
+cd Compu-Feed
 sudo chmod +x build.sh
 sudo ./build.sh
 ```
