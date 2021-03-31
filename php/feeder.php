@@ -186,6 +186,10 @@ function execQuery($sql)
         exit();
     }
 
+    // Set timezone to central
+    $timezoneSQL = "set time_zone = '-05:00'";
+    $dblink->query($timezoneSQL);
+
     // Execute query
     if ($dblink->query($sql) === TRUE) {
         $rc = true;
