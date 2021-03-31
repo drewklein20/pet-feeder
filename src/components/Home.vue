@@ -1,130 +1,132 @@
 <template>
-<div>
-  <v-container>
-    <v-row dense>
-      <v-col cols="12">
-        <v-card color="secondary" dark v-if="settings.isUsingScale">
-          <v-card-title class="headline mb-3 dark-text">
-            Current Bowl
-            <v-spacer></v-spacer>
-            {{ currentWeight }}g
-          </v-card-title>
+  <div>
+    <v-container>
+      <v-row dense>
+        <v-col cols="12">
+          <v-card color="secondary" dark v-if="settings.isUsingScale">
+            <v-card-title class="headline mb-3 dark-text">
+              Current Bowl
+              <v-spacer></v-spacer>
+              {{ currentWeight }}g
+            </v-card-title>
 
-          <v-card-subtitle>
-            <v-progress-linear
-              color="primary"
-              :value="currentPercentage"
-              height="30"
-            >
-              <strong>{{ currentPercentage }}%</strong>
-            </v-progress-linear>
-          </v-card-subtitle>
+            <v-card-subtitle>
+              <v-progress-linear
+                color="primary"
+                :value="currentPercentage"
+                height="30"
+              >
+                <strong>{{ currentPercentage }}%</strong>
+              </v-progress-linear>
+            </v-card-subtitle>
 
-          <v-card-actions>
-            <v-btn
-              class="ml-2 mt-1 mb-3"
-              outlined
-              color="primary"
-              rounded
-              small
-              @click="$emit('clickedDrawer', 'Feed Now')"
-            >
-              Feed Now
-            </v-btn>
-            <v-spacer></v-spacer>
-            <v-card>
+            <v-card-actions>
+              <v-btn
+                class="ml-2 mt-1 mb-3"
+                outlined
+                color="primary"
+                rounded
+                small
+                @click="$emit('clickedDrawer', 'Feed Now')"
+              >
+                Feed Now
+              </v-btn>
+              <v-spacer></v-spacer>
+              <v-card>
+                <v-row>
+                  <v-col>
+                    <v-img
+                      v-if="settings.isUsingCamera"
+                      :lazy-src="currentImg"
+                      max-height="80"
+                      max-width="70"
+                      :src="currentImg + '?rnd=' + cacheKey"
+                    ></v-img>
+                  </v-col>
+                  <v-col class="smallCol">
+                    <v-layout align-center justify-center class="pt-2 pb-6">
+                      <v-icon
+                        large
+                        color="white"
+                        class="pt-3"
+                        @click="openPreview"
+                      >
+                        mdi-eye
+                      </v-icon>
+                    </v-layout>
+                  </v-col>
+                </v-row>
+              </v-card>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+        <v-col cols="12" class="pt-4">
+          <v-card color="primary" dark>
+            <v-card-title class="headline mb-3">
+              {{ settings.petName }}
+              {{ settings.twoBowls ? "have" : "has" }} eaten
+            </v-card-title>
+
+            <v-card-text class="pb-8">
               <v-row>
-                <v-col>
-                  <v-img
-                    v-if="settings.isUsingCamera"
-                    :lazy-src="currentImg"
-                    max-height="80"
-                    max-width="70"
-                    :src="currentImg + '?rnd=' + cacheKey"
-                  ></v-img>
-                </v-col>
-                <v-col class="smallCol">
-                   <v-layout align-center justify-center class="pt-2 pb-6">
-                  <v-icon large color="white" class="pt-3" @click="openPreview">
-                    mdi-eye
+                <v-col class="light-text">
+                  {{ totalWeight }}
+                  <v-icon class="ml-2" color="secondary" dark>
+                    mdi-cup
                   </v-icon>
-                   </v-layout>
+                </v-col>
+                <v-col class="light-text">
+                  {{ (totalWeight / cupsPerBag).toFixed(2) }}
+                  <v-icon class="ml-2" color="secondary" dark>
+                    mdi-sack
+                  </v-icon>
+                </v-col>
+                <v-col class="light-text">
+                  {{ (totalWeight / cupsPerBag / 3000).toFixed(2) }}
+                  <v-icon class="ml-2" color="secondary" dark>
+                    mdi-car-pickup
+                  </v-icon>
                 </v-col>
               </v-row>
-            </v-card>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-      <v-col cols="12" class="pt-4">
-        <v-card color="primary" dark>
-          <v-card-title class="headline mb-3">
-            {{ settings.petName }}
-            {{ settings.twoBowls ? "have" : "has" }} eaten
-          </v-card-title>
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col cols="12" class="pt-4">
+          <v-card color="secondary" dark>
+            <v-card-title class="headline dark-text">
+              Last Fed
+              <v-spacer></v-spacer>
+              Next Feed
+            </v-card-title>
 
-          <v-card-text class="pb-8">
-            <v-row>
-              <v-col class="light-text">
-                {{ totalWeight }}
-                <v-icon class="ml-2" color="secondary" dark>
-                  mdi-cup
-                </v-icon>
-              </v-col>
-              <v-col class="light-text">
-                {{ (totalWeight / cupsPerBag).toFixed(2) }}
-                <v-icon class="ml-2" color="secondary" dark>
-                  mdi-sack
-                </v-icon>
-              </v-col>
-              <v-col class="light-text">
-                {{ (totalWeight / cupsPerBag / 3000).toFixed(2) }}
-                <v-icon class="ml-2" color="secondary" dark>
-                  mdi-car-pickup
-                </v-icon>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col cols="12" class="pt-4">
-        <v-card color="secondary" dark>
-          <v-card-title class="headline dark-text">
-            Last Fed
-            <v-spacer></v-spacer>
-            Next Feed
-          </v-card-title>
+            <div class="feed-times ml-4 mr-4">
+              <span class="dark-text feed-time">
+                {{ lastFeed | formatRelative }} ({{ lastFeedAmount }}
+                {{ lastFeedAmount > 1 ? " Cups" : "Cup" }})
+              </span>
+              <span class="dark-text feed-time align-right">
+                {{ nextFeed | formatRelative }} ({{ nextFeedAmount }}
+                {{ nextFeedAmount > 1 ? " Cups" : "Cup" }})
+              </span>
+            </div>
 
-          <div class="feed-times ml-4 mr-4">
-            <span class="dark-text feed-time">
-              {{ lastFeed | formatRelative }} ({{ lastFeedAmount }}
-              {{ lastFeedAmount > 1 ? " Cups" : "Cup" }})
-            </span>
-            <span class="dark-text feed-time align-right">
-              {{ nextFeed | formatRelative }} ({{ nextFeedAmount }}
-              {{ nextFeedAmount > 1 ? " Cups" : "Cup" }})
-            </span>
-          </div>
-
-          <v-card-actions>
-            <v-btn
-              class="ml-2 mt-1 mb-3"
-              outlined
-              color="primary"
-              rounded
-              small
-              @click="$emit('clickedDrawer', 'Scheduler')"
-            >
-              Edit Schedule
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
-  <v-dialog
-        v-model="isPreviewingImg"
-        max-width="600px"
-      >
+            <v-card-actions>
+              <v-btn
+                class="ml-2 mt-1 mb-3"
+                outlined
+                color="primary"
+                rounded
+                small
+                @click="$emit('clickedDrawer', 'Scheduler')"
+              >
+                Edit Schedule
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+    <v-dialog v-model="isPreviewingImg" max-width="600px">
       <v-card>
         <v-img
           v-if="settings.isUsingCamera"
@@ -133,8 +135,7 @@
         ></v-img>
       </v-card>
     </v-dialog>
-
-</div>
+  </div>
 </template>
 
 <script>
@@ -162,7 +163,7 @@ export default {
     value: [0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, 0],
     isPreviewingImg: false,
     cacheKey: +new Date(),
-    imgInterval: ''
+    imgInterval: "",
   }),
   async mounted() {
     await this.fetchData();

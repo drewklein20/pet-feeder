@@ -289,19 +289,16 @@
             </v-expansion-panel-content>
           </v-expansion-panel>
           <v-expansion-panel>
-            <v-expansion-panel-header
-              >
+            <v-expansion-panel-header>
               <v-switch
                 v-on:click.stop
                 @change="togglePanel(6, settings.isUsingCamera)"
                 v-model="settings.isUsingCamera"
                 label="Camera"
               ></v-switch>
-              </v-expansion-panel-header
-            >
+            </v-expansion-panel-header>
             <v-expansion-panel-content>
               <v-row>
-                
                 <v-col> </v-col>
                 <v-col> </v-col>
               </v-row>
@@ -334,7 +331,15 @@
                 rounded
                 color="secondary"
                 @click="updateSettings"
-                :disabled="isUpdating || !fieldsHaveChanged || !authSettingsValid || !feedSettingsValid || !emailSettingsValid || !alexaSettingsValid || !scaleSettingsValid"
+                :disabled="
+                  isUpdating ||
+                    !fieldsHaveChanged ||
+                    !authSettingsValid ||
+                    !feedSettingsValid ||
+                    !emailSettingsValid ||
+                    !alexaSettingsValid ||
+                    !scaleSettingsValid
+                "
               >
                 Update
               </v-btn>
@@ -405,15 +410,10 @@ export default {
       return fieldsHaveChanged;
     },
     feedSettingsValid() {
-        return (
-          this.settings.cupDuration != ''
-        );
+      return this.settings.cupDuration != "";
     },
     authSettingsValid() {
-        return (
-          this.settings.username != '' &&
-          this.settings.password != ''
-        );
+      return this.settings.username != "" && this.settings.password != "";
     },
     emailSettingsValid() {
       let emailSettings = this.settings.emailConfig;
@@ -426,26 +426,26 @@ export default {
           emailSettings.port != ""
         );
       } else {
-        return true
+        return true;
       }
     },
     alexaSettingsValid() {
       if (this.settings.isUsingAlexa) {
         return (
-          this.settings.sinricAPI != '' &&
-          this.settings.sinricDeviceId != ''
+          this.settings.sinricAPI != "" && this.settings.sinricDeviceId != ""
         );
       } else {
-        return true
+        return true;
       }
     },
     scaleSettingsValid() {
       if (this.settings.isUsingScale) {
         return (
-          this.settings.scaleReferenceUnit != '' && this.settings.fullBowlWeight != ''
+          this.settings.scaleReferenceUnit != "" &&
+          this.settings.fullBowlWeight != ""
         );
       } else {
-        return true
+        return true;
       }
     },
   },

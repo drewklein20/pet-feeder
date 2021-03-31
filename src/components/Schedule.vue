@@ -3,7 +3,9 @@
     <v-dialog transition="dialog-bottom-transition" max-width="600">
       <template v-slot:activator="{ on, attrs }">
         <v-layout align-center justify-center class="mb-4">
-          <v-btn color="secondary" v-bind="attrs" v-on="on">Add Scheduled Feed</v-btn>
+          <v-btn color="secondary" v-bind="attrs" v-on="on"
+            >Add Scheduled Feed</v-btn
+          >
         </v-layout>
       </template>
       <template v-slot:default="dialog">
@@ -34,7 +36,13 @@
           </v-card-text>
           <v-card-actions class="justify-end">
             <v-btn text color="error" @click="cancelFeed(dialog)">Cancel</v-btn>
-            <v-btn rounded color="secondary" @click="addFeed(dialog)" :disabled="tempTime =='' || tempAmount == ''">Add</v-btn>
+            <v-btn
+              rounded
+              color="secondary"
+              @click="addFeed(dialog)"
+              :disabled="tempTime == '' || tempAmount == ''"
+              >Add</v-btn
+            >
           </v-card-actions>
         </v-card>
       </template>

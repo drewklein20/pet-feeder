@@ -30,7 +30,6 @@ if dbresult[0] == 'true':
     else:
         from emulated_hx711 import HX711
 
-
     def cleanAndExit():
         print("Cleaning...")
 
@@ -39,7 +38,6 @@ if dbresult[0] == 'true':
 
         print("Bye!")
         sys.exit()
-
 
     hx = HX711(5, 6)
 

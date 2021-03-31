@@ -23,16 +23,15 @@
           </v-col>
         </v-row>
         <span style="color: red">
-        {{errorMessage}}
+          {{ errorMessage }}
         </span>
       </v-card-text>
       <v-card-actions>
-         <v-layout align-center justify-center>
+        <v-layout align-center justify-center>
           <v-btn rounded color="secondary" @click="authenticate">
             Login
           </v-btn>
-         </v-layout
-        >
+        </v-layout>
       </v-card-actions>
     </v-card>
   </v-container>
@@ -43,50 +42,49 @@ export default {
   name: "Auth",
 
   data: () => ({
-    username: '',
-    password: '',
-    errorMessage: ''
+    username: "",
+    password: "",
+    errorMessage: "",
   }),
   methods: {
     authenticate() {
-      if (this.username != '' || this.password != '') {
-
-        let body = "action=auth&username=" + this.username.toLowerCase() + "&password=" + this.password;
+      if (this.username != "" || this.password != "") {
+        let body =
+          "action=auth&username=" +
+          this.username.toLowerCase() +
+          "&password=" +
+          this.password;
         let apiUrl = process.env.VUE_APP_BACKEND_URL;
         this.axios.post(apiUrl, body).then((response) => {
           if (response.data == true) {
-            this.$emit('authEvent', true)
+            this.$emit("authEvent", true);
           } else {
-            this.errorMessage = 'Incorrect username or password'
+            this.errorMessage = "Incorrect username or password";
           }
         });
-    
       } else {
-        this.errorMessage = 'Username and password cannot be blank'
+        this.errorMessage = "Username and password cannot be blank";
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
-
 <style>
 .page-title {
- color: #AFCBFF; 
- font-family: 'Helvetica Neue', sans-serif; 
- font-size: 40px; 
- font-weight: bold; 
- letter-spacing: -1px; 
- line-height: 1; 
- text-align: center;
- margin: 20px;
+  color: #afcbff;
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 40px;
+  font-weight: bold;
+  letter-spacing: -1px;
+  line-height: 1;
+  text-align: center;
+  margin: 20px;
 }
 .auth-title {
+  font-family: monaco, Consolas, "Lucida Console", monospace;
   font-size: 36pt;
   padding: 40px;
-  color: #AFCBFF;
+  color: #afcbff;
 }
-
-h1 { font-family: monaco, Consolas, "Lucida Console", monospace; font-size: 24px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 26.4px; } h3 { font-family: monaco, Consolas, "Lucida Console", monospace; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 15.4px; } p { font-family: monaco, Consolas, "Lucida Console", monospace; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 20px; } blockquote { font-family: monaco, Consolas, "Lucida Console", monospace; font-size: 21px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 30px; } pre { font-family: monaco, Consolas, "Lucida Console", monospace; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 18.5714px; }
 </style>
-

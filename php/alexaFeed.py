@@ -8,7 +8,6 @@ from datetime import datetime
 from subprocess import call
 
 
-
 mydb = mysql.connector.connect(
     host="localhost",
     user="remote",
@@ -25,6 +24,7 @@ dbresult = dbcursor.fetchone()
 apiStr = "apikey:" + str(dbresult[0])
 deviceStr = str(dbresult[1])
 encoded_u = base64.b64encode(apiStr.encode()).decode()
+
 
 def deviceAction(value, deviceName):
     if value == "ON":
@@ -48,6 +48,7 @@ def deviceAction(value, deviceName):
         dbcursor.execute(sql, val)
         mydb.commit()
         call(["python", "/var/www/html/php/feed.py"])
+
 
 def selectDevice(deviceId, action, value):
     if deviceId == deviceStr:  # Replace with your deviceId

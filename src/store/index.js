@@ -1,15 +1,15 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import createPersistedState from 'vuex-persistedstate'
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
 
 function initialState() {
   return {
-    username: '',
-    password: '',
-    isAuthenticated: ''
-  }
+    username: "",
+    password: "",
+    isAuthenticated: "",
+  };
 }
 
 export default new Vuex.Store({
@@ -19,11 +19,12 @@ export default new Vuex.Store({
       state.isAuthenticated = authEvent;
     },
   },
-  actions: {
-  },
+  actions: {},
   modules: {},
-  plugins: [createPersistedState({
-    paths: ['isAuthenticated'],
-    storage: window.sessionStorage
-  })]
+  plugins: [
+    createPersistedState({
+      paths: ["isAuthenticated"],
+      storage: window.sessionStorage,
+    }),
+  ],
 });

@@ -1,8 +1,5 @@
 <template>
   <v-container>
-
-
-    
     <v-card class="mx-auto" max-width="400">
       <v-card-title>
         Feed Now
@@ -22,9 +19,14 @@
 
           <v-col>
             <v-layout align-center justify-center class="pt-2">
-            <v-btn rounded color="secondary" @click="feedRequest" :disabled="isFeeding">
-              Feed
-            </v-btn>
+              <v-btn
+                rounded
+                color="secondary"
+                @click="feedRequest"
+                :disabled="isFeeding"
+              >
+                Feed
+              </v-btn>
             </v-layout>
           </v-col>
         </v-row>
@@ -46,18 +48,18 @@ export default {
     amount: "1",
     feedResult: "",
     amounts: [".5", "1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5"],
-    isFeeding: false
+    isFeeding: false,
   }),
   methods: {
     feedRequest() {
-      this.isFeeding = true
-      let cupOrCups = this.amount > 1 ? " cups " : " cup "
+      this.isFeeding = true;
+      let cupOrCups = this.amount > 1 ? " cups " : " cup ";
       this.feedResult = "Dispensing " + this.amount + cupOrCups + "now!";
       let body = "action=feed_now&amount=" + this.amount;
       let apiUrl = process.env.VUE_APP_BACKEND_URL;
       this.axios.post(apiUrl, body).then((response) => {
         this.feedResult = response.data;
-        this.isFeeding = false
+        this.isFeeding = false;
         self.feedResult = "";
       });
 
