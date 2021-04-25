@@ -42,6 +42,14 @@
                     outlined
                   ></v-text-field>
                 </v-col>
+                <v-col>
+                  <v-select
+                    v-model="settings.speed"
+                    :items="speeds"
+                    label="Feeder Speed"
+                    outlined
+                  ></v-select>
+                </v-col>
               </v-row>
               <v-row>
                 <v-col>
@@ -369,6 +377,7 @@ export default {
     amount: "1",
     feedResult: "",
     amounts: [".5", "1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5"],
+    speeds: [".5", "1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5"],
     tempSettings: {},
     settings: {
       petName: "Pet",
@@ -380,6 +389,7 @@ export default {
       fullBowlWeight: 0.0,
       scaleReferenceUnit: 1,
       cupDuration: 3.0,
+      speed: 3,
       isUsingScale: false,
       isUsingAlexa: false,
       sinricAPI: "",
