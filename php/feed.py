@@ -179,12 +179,12 @@ def feed():
                     pi.set_servo_pulsewidth(17, speed)
                     time.sleep(feedAmount)
                     pi.set_servo_pulsewidth(17, 0)
-                if twoBowls:
-                    time.sleep(1)
-                    feedAmount = feedAmount + float(leftBowlOffset)
-                    pi.set_servo_pulsewidth(17, 1000)
-                    time.sleep(feedAmount)
-                    pi.set_servo_pulsewidth(17, 0)
+                    if twoBowls:
+                        time.sleep(1)
+                        feedAmount = feedAmount + float(leftBowlOffset)
+                        pi.set_servo_pulsewidth(17, 1000)
+                        time.sleep(feedAmount)
+                        pi.set_servo_pulsewidth(17, 0)
             pi.stop()
 
         except KeyboardInterrupt:
