@@ -47,7 +47,7 @@ def send_email(emailConfig, petName, feedCups, trigger, cameraEnabled):
         cupText = str(feedCups) + " cups"
         if str(feedCups) == "1":
            cupText = str(feedCups) + " cup"
-        
+
 
         html = html.replace("&petname&", petName)
         html = html.replace("&trigger&", triggerText)
@@ -131,10 +131,11 @@ def feed():
         speed = 1950
     if speedSetting == "9":
         speed = 2000
-   
+
     emailNotifications = preferences["emailNotifications"]
     cameraEnabled = preferences["isUsingCamera"]
     emailConfig = preferences["emailConfig"]
+    isIncrementFeed = preferences["isIncrementFeed"]
     twoBowls = preferences["twoBowls"]
     leftBowlOffset = preferences["leftBowlOffset"]
     rightBowlOffset = preferences["rightBowlOffset"]
@@ -156,23 +157,34 @@ def feed():
     feedCups = dbresult[2]
     trigger = dbresult[3]
 
-    sleepAmount = float(cupDuration) * float(feedCups)
+    cumulativeTime = 0.0
+    feedAmount = float(cupDuration) * float(feedCups)
 
-    # If feeding two bowls, the right one will be fed first (servo spin direction)
+    if isIncrementFeed:
+        # Change the feed amount if incrementFeed (cupDuration becomes number of pulses)
+        feedAmount = (float(cupDuration) * 0.10) * float(feedCups)
 
     if currentWeight < fullBowlWeight:
         try:
-            feedAmount = sleepAmount + float(rightBowlOffset)
-            pi.set_servo_pulsewidth(17, speed)
-            time.sleep(feedAmount)
-            # switch servo off
-            pi.set_servo_pulsewidth(17, 0)
-            if twoBowls:
-                time.sleep(1)
-                feedAmount = sleepAmount + float(leftBowlOffset)
-                pi.set_servo_pulsewidth(17, 1000)
-                time.sleep(feedAmount)
-                pi.set_servo_pulsewidth(17, 0)
+            if isIncrementFeed:
+                while cumulativeTime < feedAmount:
+                    feedAmount = feedAmount + float(rightBowlOffset)
+                    pi.set_servo_pulsewidth(17, speed)
+                    time.sleep(0.10)
+                    pi.set_servo_pulsewidth(17, 0)
+                    time.sleep(0.30)
+                    cumulativeTime += 0.10
+            else:
+                    feedAmount = feedAmount + float(rightBowlOffset)
+                    pi.set_servo_pulsewidth(17, speed)
+                    time.sleep(feedAmount)
+                    pi.set_servo_pulsewidth(17, 0)
+                if twoBowls:
+                    time.sleep(1)
+                    feedAmount = feedAmount + float(leftBowlOffset)
+                    pi.set_servo_pulsewidth(17, 1000)
+                    time.sleep(feedAmount)
+                    pi.set_servo_pulsewidth(17, 0)
             pi.stop()
 
         except KeyboardInterrupt:

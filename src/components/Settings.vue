@@ -34,8 +34,16 @@
             <v-expansion-panel-content>
               <v-row>
                 <v-col>
+                  <v-layout>
+                    <v-checkbox
+                      v-model="settings.isIncrementFeed"
+                      label="Incremental Feed"
+                    ></v-checkbox>
+                  </v-layout>
+                </v-col>
+                <v-col>
                   <v-text-field
-                    label="1 Cup Duration (seconds)"
+                    :label="settings.isIncrementFeed ? '1 Cup (# of pulses)' : '1 Cup Duration (seconds)'"
                     placeholder=""
                     type="number"
                     v-model="settings.cupDuration"
@@ -390,6 +398,7 @@ export default {
       scaleReferenceUnit: 1,
       cupDuration: 3.0,
       speed: 3,
+      isIncrementFeed: true,
       isUsingScale: false,
       isUsingAlexa: false,
       sinricAPI: "",
