@@ -162,8 +162,8 @@ def feed():
     if currentWeight < fullBowlWeight:
         try:
             if isIncrementFeed:
+                feedAmount = initialFeedAmount + float(rightBowlOffset)
                 while cumulativeTime < feedAmount:
-                    feedAmount = initialFeedAmount + float(rightBowlOffset)
                     pi.set_servo_pulsewidth(17, speed)
                     time.sleep(0.10)
                     pi.set_servo_pulsewidth(17, 0)
@@ -171,8 +171,8 @@ def feed():
                     cumulativeTime += 1
                 if twoBowls:
                     cumulativeTime = 0
+                    feedAmount = initialFeedAmount + float(rightBowlOffset)
                     while cumulativeTime < feedAmount:
-                        feedAmount = initialFeedAmount + float(rightBowlOffset)
                         pi.set_servo_pulsewidth(17, 1000)
                         time.sleep(0.10)
                         pi.set_servo_pulsewidth(17, 0)
