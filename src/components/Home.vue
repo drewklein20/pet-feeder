@@ -3,11 +3,15 @@
     <v-container>
       <v-row dense>
         <v-col cols="12">
-          <v-card color="secondary" dark v-if="settings.isUsingScale || settings.isUsingCamera">
+          <v-card
+            color="secondary"
+            dark
+            v-if="settings.isUsingScale || settings.isUsingCamera"
+          >
             <v-card-title class="headline mb-3 dark-text">
               Current Bowl
               <v-spacer></v-spacer>
-              {{ settings.isUsingScale ? currentWeight + 'g' : '' }}
+              {{ settings.isUsingScale ? currentWeight + "g" : "" }}
             </v-card-title>
 
             <v-card-subtitle v-if="settings.isUsingScale">
@@ -53,22 +57,29 @@
         <v-col cols="12" class="pt-4">
           <v-card color="primary" dark>
             <v-card-title class="headline mb-3">
-              {{ settings.petName }}
-              {{ settings.twoBowls ? "have" : "has" }} eaten
+              <div>
+                {{ settings.petName }}
+                {{ settings.twoBowls ? "have" : "has" }} eaten
+              </div>
+              <v-spacer></v-spacer>
+              <div class="small-header">
+                {{ amountFedToday | decimalToFraction }}
+                {{ amountFedToday > 1 ? "cups" : "cup" }} today
+              </div>
             </v-card-title>
 
             <v-card-text class="pb-8">
               <v-row>
                 <v-tooltip top>
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-col class="light-text" v-bind="attrs" v-on="on">
-                        {{ totalWeight }}
-                        <v-icon class="ml-2" color="secondary" dark>
-                          mdi-cup
-                        </v-icon>
-                      </v-col>
-                    </template>
-                    <span>{{ totalWeight }} cups of dog food</span>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-col class="light-text" v-bind="attrs" v-on="on">
+                      {{ totalWeight }}
+                      <v-icon class="ml-2" color="secondary" dark>
+                        mdi-cup
+                      </v-icon>
+                    </v-col>
+                  </template>
+                  <span>{{ totalWeight }} cups of dog food</span>
                 </v-tooltip>
                 <v-tooltip top>
                   <template v-slot:activator="{ on, attrs }">
@@ -79,9 +90,12 @@
                       </v-icon>
                     </v-col>
                   </template>
-                  <span>{{ (totalWeight / cupsPerBag).toFixed(2) }} bags of dog food</span>
+                  <span
+                    >{{ (totalWeight / cupsPerBag).toFixed(2) }} bags of dog
+                    food</span
+                  >
                 </v-tooltip>
-                 <v-tooltip top>
+                <v-tooltip top>
                   <template v-slot:activator="{ on, attrs }">
                     <v-col class="light-text" v-bind="attrs" v-on="on">
                       {{ (totalWeight / cupsPerBag / 3000).toFixed(2) }}
@@ -90,7 +104,10 @@
                       </v-icon>
                     </v-col>
                   </template>
-                  <span> {{ (totalWeight / cupsPerBag / 3000).toFixed(2) }} truck loads of dog food</span>
+                  <span>
+                    {{ (totalWeight / cupsPerBag / 3000).toFixed(2) }} truck
+                    loads of dog food</span
+                  >
                 </v-tooltip>
               </v-row>
             </v-card-text>
@@ -107,14 +124,19 @@
             <div class="feed-times ml-4 mr-4">
               <!-- Left column -->
               <span v-if="logs.length" class="dark-text feed-time">
-                {{ lastFeed | formatRelative }} ({{ lastFeedAmount }}
+                {{ lastFeed | formatRelative }} ({{
+                  lastFeedAmount | decimalToFraction
+                }}
                 {{ lastFeedAmount > 1 ? " Cups" : "Cup" }})
               </span>
               <span v-else class="dark-text feed-time">
                 never
               </span>
               <!-- Right column -->
-              <span v-if="scheduledFeeds.length" class="dark-text feed-time align-right">
+              <span
+                v-if="scheduledFeeds.length"
+                class="dark-text feed-time align-right"
+              >
                 {{ nextFeed | formatRelative }} ({{ nextFeedAmount }}
                 {{ nextFeedAmount > 1 ? " Cups" : "Cup" }})
               </span>
@@ -124,7 +146,7 @@
             </div>
 
             <v-card-actions>
-                <v-btn
+              <v-btn
                 class="ml-2 mt-1 mb-3"
                 outlined
                 color="primary"
@@ -143,7 +165,9 @@
                 small
                 @click="$emit('clickedDrawer', 'Scheduler')"
               >
-                {{ scheduledFeeds.length ? 'Edit Schedule' : 'Add Scheduled Feed'}}
+                {{
+                  scheduledFeeds.length ? "Edit Schedule" : "Add Scheduled Feed"
+                }}
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -168,11 +192,11 @@
 
 <script>
 import moment from "moment";
-import feed from "../components/Feed"
+import feed from "../components/Feed";
 
 export default {
   name: "Home",
-  components: {feed},
+  components: { feed },
   props: {
     currentWeight: { type: String, required: false },
     currentPercentage: { type: String, required: false },
@@ -193,7 +217,7 @@ export default {
     isPreviewingImg: false,
     cacheKey: +new Date(),
     imgInterval: "",
-    isShowingFeedNow: false
+    isShowingFeedNow: false,
   }),
   async mounted() {
     await this.fetchData();
@@ -285,6 +309,23 @@ export default {
         return closestFeed.format();
       } else {
         return null;
+      }
+    },
+    amountFedToday() {
+      if (this.logs.length) {
+        let sum = 0;
+        let now = moment();
+
+        for (let element of this.logs) {
+          let feedMoment = moment(element.timestamp);
+
+          if (now.isSame(feedMoment, "day")) {
+            sum += parseFloat(element.amount);
+          }
+        }
+        return sum;
+      } else {
+        return 0;
       }
     },
     nextFeedAmount() {
@@ -379,7 +420,9 @@ export default {
   max-width: 500px;
   margin: 150px auto;
 }
-
+.small-header {
+  font-size: 18px;
+}
 .light-text {
   color: #afcbff;
   text-align: center;

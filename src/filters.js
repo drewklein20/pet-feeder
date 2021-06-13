@@ -57,3 +57,40 @@ Vue.filter("formatDateTimeOnly", function(value) {
     return moment(String(value)).format("HH:mm:ss");
   }
 });
+
+Vue.filter("decimalToFraction", function(value) {
+  if (value) {
+    let returnValue = "";
+    let integer = Math.floor(value);
+    let decimal = value % 1;
+
+    let fraction = "";
+    switch (decimal) {
+      case 0.25: {
+        fraction = "1/4";
+        break;
+      }
+      case 0.5: {
+        fraction = "1/2";
+        break;
+      }
+      case 0.75: {
+        fraction = "3/4";
+        break;
+      }
+      default:
+        break;
+    }
+
+    if (integer > 0) {
+      returnValue = String(integer);
+
+      if (fraction != "") {
+        returnValue += " & ";
+      }
+    }
+    let units = integer > 1 ? "cups" : "cup";
+
+    return returnValue + fraction;
+  }
+});

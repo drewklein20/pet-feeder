@@ -29,7 +29,14 @@
                     hint="Cups"
                     persistent-hint
                     outlined
-                  ></v-select>
+                  >
+                    <template v-slot:selection="data">
+                      <span>{{ data.item | decimalToFraction }}</span>
+                    </template>
+                    <template v-slot:item="data">
+                      <span>{{ data.item | decimalToFraction }}</span>
+                    </template>
+                  </v-select>
                 </v-spacer>
               </v-col>
             </v-row>
@@ -49,7 +56,44 @@
     </v-dialog>
 
     <v-card>
-      <v-simple-table>
+      <v-data-table
+        :headers="headers"
+        :items="scheduledFeeds"
+        :items-per-page="15"
+        class="elevation-1"
+      >
+        <template v-slot:item.feedTime="{ item }">
+          <span>{{ item.feedTime | 12Hour }}</span>
+        </template>
+        <template v-slot:item.modified="{ item }">
+          <span>{{ item.modified | formatDateShorter }}</span>
+        </template>
+        <template v-slot:item.amount="{ item }">
+          <span
+            >{{ item.amount | decimalToFraction }}
+            {{ item.amount > 1 ? "Cups" : "Cup" }}</span
+          >
+        </template>
+        <template v-slot:item.id="{ item }">
+          <v-btn
+            class="mx-2 trashcan"
+            fab
+            dark
+            x-small
+            color="red"
+            @click="removeScheduledFeed(item.id)"
+          >
+            <v-icon dark>
+              mdi-delete
+            </v-icon>
+          </v-btn>
+        </template>
+        <template v-slot:no-data>
+          No scheduled feeds
+        </template>
+      </v-data-table>
+
+      <!-- <v-simple-table>
         <template v-slot:default>
           <thead>
             <tr>
@@ -88,7 +132,7 @@
             </tr>
           </tbody>
         </template>
-      </v-simple-table>
+      </v-simple-table> -->
     </v-card>
   </div>
 </template>
@@ -102,7 +146,39 @@ export default {
     intervalId: "",
     tempAmount: "",
     tempTime: "",
-    amounts: ["0.25","0.5", "0.75", "1", "1.25", "1.5", "1.75", "2", "2.25","2.5","2.75", "3", "3.25","3.5","3.75", "4","4.25", "4.5","4.75", "5"],
+    headers: [
+      {
+        text: "Feed Time",
+        align: "start",
+        sortable: true,
+        value: "feedTime",
+      },
+      { text: "Amount", value: "amount" },
+      { text: "Modified", value: "modified" },
+      { text: "", value: "id" },
+    ],
+    amounts: [
+      "0.25",
+      "0.5",
+      "0.75",
+      "1",
+      "1.25",
+      "1.5",
+      "1.75",
+      "2",
+      "2.25",
+      "2.5",
+      "2.75",
+      "3",
+      "3.25",
+      "3.5",
+      "3.75",
+      "4",
+      "4.25",
+      "4.5",
+      "4.75",
+      "5",
+    ],
     scheduleResult: "",
   }),
   mounted() {

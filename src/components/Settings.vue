@@ -43,7 +43,11 @@
                 </v-col>
                 <v-col>
                   <v-text-field
-                    :label="settings.isIncrementFeed ? '1 Cup (# of pulses)' : '1 Cup Duration (seconds)'"
+                    :label="
+                      settings.isIncrementFeed
+                        ? '1 Cup (# of pulses)'
+                        : '1 Cup Duration (seconds)'
+                    "
                     placeholder=""
                     type="number"
                     v-model="settings.cupDuration"
@@ -214,7 +218,14 @@
                     hint="Cups"
                     persistent-hint
                     outlined
-                  ></v-select>
+                  >
+                    <template v-slot:selection="data">
+                      <span>{{ data.item | decimalToFraction }}</span>
+                    </template>
+                    <template v-slot:item="data">
+                      <span>{{ data.item | decimalToFraction }}</span>
+                    </template>
+                  </v-select>
                 </v-col>
               </v-row>
               <v-row>
@@ -384,7 +395,28 @@ export default {
     openedPanel: [],
     amount: "1",
     feedResult: "",
-    amounts: ["0.25","0.5", "0.75", "1", "1.25", "1.5", "1.75", "2", "2.25","2.5","2.75", "3", "3.25","3.5","3.75", "4","4.25", "4.5","4.75", "5"],
+    amounts: [
+      "0.25",
+      "0.5",
+      "0.75",
+      "1",
+      "1.25",
+      "1.5",
+      "1.75",
+      "2",
+      "2.25",
+      "2.5",
+      "2.75",
+      "3",
+      "3.25",
+      "3.5",
+      "3.75",
+      "4",
+      "4.25",
+      "4.5",
+      "4.75",
+      "5",
+    ],
     speeds: ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
     tempSettings: {},
     settings: {

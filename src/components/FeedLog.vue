@@ -5,7 +5,20 @@
       :items="logs"
       :items-per-page="15"
       class="elevation-1"
-    ></v-data-table>
+    >
+      <template v-slot:item.timestamp="{ item }">
+        <span>{{ item.timestamp | formatDate }}</span>
+      </template>
+      <template v-slot:item.amount="{ item }">
+        <span
+          >{{ item.amount | decimalToFraction }}
+          {{ item.amount > 1 ? "Cups" : "Cup" }}</span
+        >
+      </template>
+      <template v-slot:no-data>
+        No feeds yet
+      </template>
+    </v-data-table>
   </v-card>
 </template>
 
@@ -23,7 +36,7 @@ export default {
         sortable: true,
         value: "timestamp",
       },
-      { text: "Amount (C)", value: "amount" },
+      { text: "Amount", value: "amount" },
       { text: "Trigger", value: "trigger" },
     ],
   }),
