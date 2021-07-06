@@ -96,7 +96,14 @@
             </v-expansion-panel-content>
           </v-expansion-panel>
           <v-expansion-panel>
-            <v-expansion-panel-header>Authentication</v-expansion-panel-header>
+            <v-expansion-panel-header>
+              <v-switch
+                v-on:click.stop
+                @change="togglePanel(2, settings.isUsingAuthentication)"
+                v-model="settings.isUsingAuthentication"
+                label="Authentication"
+              ></v-switch>
+            </v-expansion-panel-header>
             <v-expansion-panel-content>
               <v-row>
                 <v-col>
@@ -431,6 +438,7 @@ export default {
       cupDuration: 3.0,
       speed: 3,
       isIncrementFeed: true,
+      isUsingAuthentication: false,
       isUsingScale: false,
       isUsingAlexa: false,
       sinricAPI: "",

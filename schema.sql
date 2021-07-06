@@ -90,7 +90,7 @@ CREATE TABLE `Settings` (
 
 LOCK TABLES `Settings` WRITE;
 /*!40000 ALTER TABLE `Settings` DISABLE KEYS */;
-INSERT INTO `Settings` VALUES (1,'{"petName":"Pet","twoBowls":false,"username":"admin","password":"password","feederName":"","defaultFeedAmount":1,"fullBowlWeight":0,"scaleReferenceUnit":1,"cupDuration":3,"speed":3,"isIncrementFeed":true,"isUsingScale":false,"isUsingAlexa":false,"sinricAPI":"","sinricDeviceId":"","leftBowlOffset":0,"rightBowlOffset":0,"isUsingCamera":false,"emailNotifications":false,"emailConfig":{"ssl":true,"port":587,"proxyEmail":"","proxyPassword":"","toEmail":""}}');
+INSERT INTO `Settings` VALUES (1,'{"petName":"Pet","twoBowls":false,"username":"admin","password":"password","isUsingAuthentication":false,"feederName":"","defaultFeedAmount":1,"fullBowlWeight":0,"scaleReferenceUnit":1,"cupDuration":3,"speed":3,"isIncrementFeed":true,"isUsingScale":false,"isUsingAlexa":false,"sinricAPI":"","sinricDeviceId":"","leftBowlOffset":0,"rightBowlOffset":0,"isUsingCamera":false,"emailNotifications":false,"emailConfig":{"ssl":true,"port":587,"proxyEmail":"","proxyPassword":"","toEmail":""}}');
 /*!40000 ALTER TABLE `Settings` ENABLE KEYS */;
 UNLOCK TABLES;
 

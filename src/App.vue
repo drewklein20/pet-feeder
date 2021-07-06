@@ -10,6 +10,7 @@
 <script>
 import Auth from "./components/Auth.vue";
 import Feeder from "./components/Feeder";
+import _ from "lodash";
 
 export default {
   name: "App",
@@ -19,15 +20,30 @@ export default {
     Auth,
   },
 
-  data: () => ({}),
+  data: () => ({
+    feederId: 1,
+    settings: null,
+  }),
+  mounted() {
+    this.fetchData();
+  },
   computed: {
     isAuthenticated() {
-      return this.$store.state.isAuthenticated;
+      return this.$store.state.isAuthenticated || (!_.isNil(this.settings) && this.settings.isUsingAuthentication == false)
     },
   },
   methods: {
     authEvent(value) {
       this.$store.commit("setIsAuthenticated", value);
+    },
+    fetchData() {
+      let apiUrl =
+        process.env.VUE_APP_BACKEND_URL +
+        "?action=feeder_settings&id=" +
+        this.feederId;
+      this.axios.get(apiUrl, {}).then((response) => {
+        this.settings = JSON.parse(response.data[0].preferences);
+      });
     },
   },
 };

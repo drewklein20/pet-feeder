@@ -13,7 +13,7 @@
         <span class="bowl-label"> {{ weightPercentage }} %</span>
       </div>
 
-      <v-menu offset-y>
+      <v-menu v-if="settings.isUsingAuthentication" offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn color="secondary" icon v-bind="attrs" v-on="on">
             <v-icon color="secondary">mdi-dots-vertical</v-icon>
@@ -102,6 +102,7 @@ export default {
       sinricDeviceId: "",
       leftBowlOffset: 0.0,
       rightBowlOffset: 0.0,
+      isUsingAuthentication: false,
     },
   }),
   computed: {
