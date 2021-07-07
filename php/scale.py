@@ -54,7 +54,7 @@ if dbresult[0] == 'true':
 
             if abs(diff) > 15:
                 print("weight change detected: ", value)
-                sql = "INSERT INTO `Feeder`.`Weights` (`value`) VALUES ('" + \
+                sql = "INSERT INTO `Feeder`.`scaleWeights` (`value`) VALUES ('" + \
                     str(value) + "')"
                 dbcursor.execute(sql)
                 mydb.commit()

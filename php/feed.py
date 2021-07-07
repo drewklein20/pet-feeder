@@ -146,7 +146,7 @@ def feed():
         fullBowlWeight = preferences["fullBowlWeight"]
 
         dbcursor = mydb.cursor()
-        dbcursor.execute("SELECT * FROM Feeder.Weights order by id desc limit 1;")
+        dbcursor.execute("SELECT * FROM Feeder.scaleWeights order by id desc limit 1;")
         dbresult = dbcursor.fetchone()
         currentWeight = dbresult[1]
 

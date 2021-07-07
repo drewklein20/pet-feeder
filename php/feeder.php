@@ -114,13 +114,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             break;
         case 'current_weight':
-            $sql = "SELECT * FROM Weights ORDER BY timestamp desc limit 1;";
+            $sql = "SELECT * FROM scaleWeights ORDER BY timestamp desc limit 1;";
             $results = queryDB($sql);
             echo json_encode($results);
 
             break;
         case 'all_weights':
-            $sql = "SELECT * FROM Weights WHERE timestamp > date_sub(now(), interval " . $interval . " " . $timeUnit . ")  ORDER BY timestamp asc;";
+            $sql = "SELECT * FROM scaleWeights WHERE timestamp > date_sub(now(), interval " . $interval . " " . $timeUnit . ")  ORDER BY timestamp asc;";
             $results = queryDB($sql);
             echo json_encode($results);
 

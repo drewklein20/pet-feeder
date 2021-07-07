@@ -94,14 +94,22 @@ INSERT INTO `Settings` VALUES (1,'{"petName":"Pet","twoBowls":false,"username":"
 /*!40000 ALTER TABLE `Settings` ENABLE KEYS */;
 UNLOCK TABLES;
 
+DROP TABLE IF EXISTS `petWeights`;
+
+CREATE TABLE `Feeder`.`petWeights` (
+  `id` INT NOT NULL,
+  `value` INT(11) NOT NULL,
+  `timestamp` DATETIME NULL DEFAULT NOW(),
+  PRIMARY KEY (`id`));
+
 --
 -- Table structure for table `Weights`
 --
 
-DROP TABLE IF EXISTS `Weights`;
+DROP TABLE IF EXISTS `scaleWeights`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Weights` (
+CREATE TABLE `scaleWeights` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `value` int(11) DEFAULT NULL,
   `timestamp` datetime DEFAULT current_timestamp(),
@@ -110,12 +118,12 @@ CREATE TABLE `Weights` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Weights`
+-- Dumping data for table `scaleWeights`
 --
 
-LOCK TABLES `Weights` WRITE;
-/*!40000 ALTER TABLE `Weights` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Weights` ENABLE KEYS */;
+LOCK TABLES `scaleWeights` WRITE;
+/*!40000 ALTER TABLE `scaleWeights` DISABLE KEYS */;
+/*!40000 ALTER TABLE `scaleWeights` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
