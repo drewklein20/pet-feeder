@@ -44,6 +44,14 @@ export default {
       let apiUrl = process.env.VUE_APP_BACKEND_URL;
       this.axios.post(apiUrl, body).then((response) => {
         this.addResult = response.data;
+        if (this.addResult == 'Adding pet weight.') {
+           
+            var self = this;
+            setTimeout(() => {
+              self.addResult = "";
+              self.$emit("closeDialog");
+            }, 1500);
+        }
       });
     },
   },

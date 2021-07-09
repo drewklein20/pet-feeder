@@ -150,7 +150,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             break;
         case 'all_pet_weights':
-            $sql = "SELECT * FROM petWeights WHERE timestamp  ORDER BY timestamp desc > date_sub(now(), interval " . $interval . " " . $timeUnit . ")  ORDER BY timestamp asc;";
+            $sql = "SELECT id, max(value) as value, timestamp FROM Feeder.petWeights group by DATE(timestamp) order by timestamp desc;";
             $results = queryDB($sql);
             echo json_encode($results);
 

@@ -97,7 +97,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `petWeights`;
 
 CREATE TABLE `Feeder`.`petWeights` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `value` DOUBLE NOT NULL,
   `timestamp` DATETIME NULL DEFAULT NOW(),
   PRIMARY KEY (`id`));

@@ -217,7 +217,7 @@
       <feed></feed>
     </v-dialog>
     <v-dialog v-model="isShowingAddWeight" max-width="400px">
-      <add-weight></add-weight>
+      <add-weight @closeDialog="isShowingAddWeight = false"></add-weight>
     </v-dialog>
   </div>
 </template>
@@ -241,6 +241,8 @@ export default {
     scaleweights: [],
     petWeights: [],
     scheduledFeeds: [],
+    currentPetWeight: '',
+    allPetWeights: [],
     logs: [],
     intervalId: "",
     timeUnit: "hour",
@@ -456,6 +458,16 @@ export default {
       apiUrl = process.env.VUE_APP_BACKEND_URL + "?action=feed_schedule";
       this.axios.get(apiUrl, {}).then((response) => {
         this.scheduledFeeds = response.data;
+      });
+
+      apiUrl = process.env.VUE_APP_BACKEND_URL + "?action=current_pet_weight";
+      this.axios.get(apiUrl, {}).then((response) => {
+        this.currentPetWeight = response.data;
+      });
+
+      apiUrl = process.env.VUE_APP_BACKEND_URL + "?action=all_pet_weights";
+      this.axios.get(apiUrl, {}).then((response) => {
+        this.allPetWeights = response.data;
       });
     },
   },
